@@ -1,0 +1,43 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "const axios = require('axios');\n\nconst fetchJobs = async () => {\n  const response = await axios.get('http://localhost:5000/api/jobs');\n  return response.data;\n};\n\nconst sendNotification = async (job) => {\n  const message = `New Job Alert: ${job.title} at ${job.company}. Check it out: ${job.link}`;\n  // Replace with your notification service\n  console.log(message);\n};\n\nconst jobs = await fetchJobs();\n\nfor (const job of jobs) {\n  await sendNotification(job);\n}\n",
+        "name": "Fetch and Notify Jobs",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          250,
+          300
+        ]
+      },
+      "id": "1"
+    },
+    {
+      "parameters": {
+        "cronExpression": "0 * * * *",
+        "timezone": "UTC"
+      },
+      "name": "Job Notification Scheduler",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        250,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Job Notification Scheduler": {
+      "main": [
+        [
+          {
+            "node": "Fetch and Notify Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
