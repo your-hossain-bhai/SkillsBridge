@@ -1,0 +1,23 @@
+{
+  "name": "skillbridge",
+  "version": "1.0.0",
+  "description": "SkillBridge is a MERN stack application designed to connect users with job opportunities and educational resources. The platform provides personalized career advice using AI, helping users to enhance their skills and find suitable job openings.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.3"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

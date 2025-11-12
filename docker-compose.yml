@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: skillbridge_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - skillbridge_network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: skillbridge_server
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/skillbridge
+      - JWT_SECRET=your_jwt_secret
+      - OPENAI_API_KEY=your_openai_api_key
+    depends_on:
+      - mongo
+    networks:
+      - skillbridge_network
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: skillbridge_client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    networks:
+      - skillbridge_network
+
+networks:
+  skillbridge_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
